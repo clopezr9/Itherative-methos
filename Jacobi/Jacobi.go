@@ -136,6 +136,6 @@ func jacobi(A []Array, b []float64, N int) {
 		ig = division(substraction(b, dot(R, ig, l), l), D, l)
 	}
 	duration := time.Since(start)
-	fmt.Println("EXECUTION TIME: ", duration.Seconds())
+	fmt.Println("EXECUTION TIME: ", duration.Nanoseconds())
 	//fmt.Println("Ans:", ig)
 }

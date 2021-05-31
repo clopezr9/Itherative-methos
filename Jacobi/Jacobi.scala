@@ -62,7 +62,7 @@ object Jacobi {
       }
 
       var duration = (System.nanoTime - t1) / 1e9d
-      println("EXECUTION TIME:" + duration + " nano seconds")
+      println("EXECUTION TIME:" + duration + " nanoseconds")
 
       //for(i<-0 to l-1){
       //   println("x" + i + "= " + ig(i))
