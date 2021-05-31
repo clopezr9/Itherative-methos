@@ -52,7 +52,7 @@ function solver_sor(A, b)
     n = size(A, 1)
 
 
-    @time begin
+    start_time = time_ns()
         norma = norm(b - A * X0, 2)
         iteracion = 0
         while !( norma <= tolerancia ||  iteracion > iteracionMax)
@@ -77,11 +77,10 @@ function solver_sor(A, b)
             iteracion += 1
             norma = norm(b - A * X0, 2)
         end
-        print("EXECUTION TIME: ")
+        end_time = time_ns()
+        exe_time = end_time - start_time
+        print("EXECUTION TIME: ", exe_time, "nanoseconds")
     end
     # println(X0)
-    
-    end
-
 
 main(ARGS)

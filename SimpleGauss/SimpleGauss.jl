@@ -1,7 +1,6 @@
 using CSV
 using DataFrames
 
-
 function main(args)
     for i in 1:length(args)
         println(args[i], ":")
@@ -32,7 +31,7 @@ end
 
 function gaussSimple(augmented_matrix, n)
     x = zeros((n))
-    @time begin
+    start_time = time_ns()
         for i in 1:n 
             if augmented_matrix[i,i] == 0.0
                 return 
@@ -59,8 +58,9 @@ function gaussSimple(augmented_matrix, n)
             end
             x[i] = x[i] / augmented_matrix[i, i]
         end
-        print("EXECUTION TIME: ")
-    end
+    end_time = time_ns()
+    exe_time = end_time - start_time
+    print("EXECUTION TIME: ", exe_time, "nanoseconds")
 end
 
 main(ARGS)
