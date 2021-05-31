@@ -1,3 +1,6 @@
+import scala.io.Source
+import javax.print.DocFlavor.INPUT_STREAM
+
 object GaussSimple {
     
     def main(args: Array[String]): Unit = {
@@ -32,7 +35,6 @@ object GaussSimple {
         x(n-1) = aug_matrix(n-1)(n) / aug_matrix(n-1)(n-1)
 
         for (i <- n-2 to 0 by -1){
-            println("im here")
             x(i) = aug_matrix(i)(n)
 
             for(j <- i+1 to n-1){

@@ -1,8 +1,22 @@
 import numpy as np
-import sys
 import time
+import sys
 
-def simple_gauss(n, augmented_matrix):
+def main():
+    args = sys.argv[1:]
+    for arg in args:
+        print("\n" + arg)
+        simple_gauss(read_csv_file(arg))
+
+def read_csv_file (file_name):
+    my_data = np.genfromtxt(file_name, delimiter=',')
+    n = my_data.shape[1]
+    return n-1, my_data
+
+
+def simple_gauss(df):
+    n = df[0]
+    augmented_matrix = df[1]
     start_time = time.time()
     # Applying Gauss Elimination
     x = np.zeros(n)
@@ -27,18 +41,12 @@ def simple_gauss(n, augmented_matrix):
 
         x[i] = x[i]/augmented_matrix[i][i]
         
-    print("\n" + "--- %s seconds ---" % (time.time() - start_time))
+    print("EXECUTION TIME:" + " %s seconds " % (time.time() - start_time))
     # Displaying solution
-    print('\nRequired solution is: ')
+    print('Required solution is: ')
     for i in range(n):
         print('X%d = %f' %(i,x[i]), end = '\t')
 
 
-sistema_1 = [[-1.2, 0, 0, 4, -1, 0, 61],
-             [0, -1, 0, -1, 4, -1, 14],
-             [4, -1, 1, -1, 0, 0, 8],
-             [-1, 5, -1, 0, -1, 0, 5],
-             [0, -1, 5, 0, 0, -1, 9],
-             [0, 0, -1, 0, -1, 6, 23]]
-simple_gauss(6, sistema_1)
-
+if __name__ == '__main__':
+    main()
