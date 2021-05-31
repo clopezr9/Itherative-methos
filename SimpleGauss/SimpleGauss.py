@@ -17,7 +17,7 @@ def read_csv_file (file_name):
 def simple_gauss(df):
     n = df[0]
     augmented_matrix = df[1]
-    start_time = time.time()
+    start_time = time.time_ns()
     # Applying Gauss Elimination
     x = np.zeros(n)
 
@@ -41,7 +41,7 @@ def simple_gauss(df):
 
         x[i] = x[i]/augmented_matrix[i][i]
         
-    print("EXECUTION TIME:" + " %s seconds " % (time.time() - start_time))
+    print("EXECUTION TIME:" + " %s nanoseconds " % (time.time_ns() - start_time))
     # Displaying solution
 
 if __name__ == '__main__':

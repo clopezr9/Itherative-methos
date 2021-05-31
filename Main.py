@@ -16,7 +16,7 @@ def commands (file, args):
     go_com = 'go run ' + file + '/' + file + '.go '
     julia_com = 'julia ' + file + '/' + file + '.jl '
     scala_run_com = 'scala ' + file + '/' + file + '.scala '
-    python_com = 'python ' + file + '/' + file + '.py '
+    python_com = 'python3 ' + file + '/' + file + '.py '
 
     for arg in args:
         go_com += arg + ' '

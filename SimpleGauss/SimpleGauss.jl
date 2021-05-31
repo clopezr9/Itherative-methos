@@ -1,7 +1,6 @@
 using CSV
 using DataFrames
 
-
 function main(args)
     for i in 1:length(args)
         println(args[i], ":")
