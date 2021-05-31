@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"os"
 	"strconv"
-	"strings"
 )
 
 type Array []float64
@@ -48,7 +47,6 @@ func readCSVFile(file_name string) ([]Array, int) {
 
 	return augmented_matrix, line_length
 }
-func gaussSimple(augmented_matrix []Array, n int) {
 
 	var slice = make([]float64, n)
 	for i := 0; i < n; i++ {
