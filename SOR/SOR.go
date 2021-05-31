@@ -3,8 +3,10 @@ package main
 import (
 	"encoding/csv"
 	"fmt"
+	"math"
 	"os"
 	"strconv"
+	"time"
 )
 
 type Array []float64
@@ -14,7 +16,7 @@ func main() {
 	for i := 1; i < len(args); i++ {
 		file_name := args[i]
 		fmt.Println(args, ":")
-		gaussSimple(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
+		sor_solver(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
 }
 func readCSVFile(file_name string) ([]Array, []float64) {
@@ -48,23 +50,60 @@ func readCSVFile(file_name string) ([]Array, []float64) {
 		}
 		matrix = append(matrix, array_aux)
 	}
-	fmt.Println(matrix)
-	fmt.Println(b)
 
 	return matrix, b
 }
 
-func gaussSimple(A []Array, c []float64) {
-	println(len(A))
+func sor_solver(A []Array, b []float64) {
+
+	//Create where the solution will be store
+	var long int = len(A)
+	var X0 = make([]float64, long)
+
+	var tolerancia float64 = 0.0000001
+	var iteracionMax int = 100
+
 	var n int = len(A)
-	
-	var slice = make([][]float64, n)
-	var b [n]][1] float64 := slice
-	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
-			// print(A[i][j])
-			print(b[i][0])
-		}
-		println()
+	var m int = len(A)
+	var omega float64 = 0.5
+	var X = X0
+
+	diferencia := [][]float64{
+		{1, 1, 1},
 	}
+	var errado = tolerancia * 2
+	var iteracion int = 0
+	start := time.Now()
+	for !(errado <= tolerancia || iteracion > iteracionMax) {
+		for fila := 0; fila < n; fila++ {
+			var suma float64 = 0
+			for columna := 0; columna < m; columna++ {
+				if fila != columna {
+					suma = (A[fila][columna]) * (X[columna])
+				}
+			}
+			var nuevo = (1.0-omega)*X[fila] + (omega/A[fila][fila])*(b[fila]-suma)
+
+			diferencia[0][fila] = math.Abs(nuevo - X[fila])
+
+			X[fila] = nuevo
+
+		}
+		var max float64
+		for _, j := range diferencia {
+			var n float64
+			for _, v := range j {
+				if v > n {
+					n = v
+					max = n
+				}
+			}
+		}
+		errado = max
+		iteracion = iteracion + 1
+	}
+	// fmt.Println("Respuesta X: ", X)
+	// fmt.Println("")
+	elapsed := time.Since(start)
+	fmt.Println("Tiempo :", elapsed)
 }
