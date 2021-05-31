@@ -25,7 +25,6 @@ def commands (file, args):
         python_com += arg + ' '
 
         print('\nLENGUAGE: GO')
-        print(go_com)
         os.system(go_com)
         print("\nLENGUAGE: JULIA")
         os.system(julia_com)

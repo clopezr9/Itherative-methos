@@ -32,8 +32,9 @@ func readCSVFile(file_name string) ([]Array, int) {
 		fmt.Println(err)
 	}
 
-	str := strings.Split(file_name, "-")[0]
-	line_length, err := strconv.Atoi(str)
+	str := strings.Split(file_name, "/")[1]
+	var a_len = strings.Split(str, "-")[0]
+	line_length, err := strconv.Atoi(a_len)
 	augmented_matrix := []Array{}
 	for _, line := range csvLines {
 		line_length := len(line)
