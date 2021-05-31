@@ -15,6 +15,7 @@ function main(args)
 end
 
 function readCSVFile(file_name) 
+
     df = CSV.read(file_name, DataFrame)
     i = names(df)
     l = nrow(df) + 1
