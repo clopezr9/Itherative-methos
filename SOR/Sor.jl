@@ -79,7 +79,7 @@ function solver_sor(A, b)
         end
         print("EXECUTION TIME: ")
     end
-    println(X0)
+    # println(X0)
     
     end
 

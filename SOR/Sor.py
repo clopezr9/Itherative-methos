@@ -7,8 +7,8 @@ def main():
     args = sys.argv[1:]
     for arg in args:
         print("\n"+ arg)
-        phi = solver_sor(read_csv_file(arg))
-    np.savetxt("../answers/3-0-res.csv", phi, delimiter = ",")
+        solver_sor(read_csv_file(arg))
+    # np.savetxt("../answers/3-0-res.csv", phi, delimiter = ",")
 
 def read_csv_file(file_name):
     my_data = genfromtxt(file_name, delimiter=',')
@@ -24,7 +24,7 @@ def solver_sor(data):
     kmax = 0
     step = 0
     phi = initial_guess[:]
-    t = time.time()
+    t = time.time_ns()
 
     residual = np.linalg.norm(np.matmul(A, phi) - b)
     while (residual > residual_convergence or kmax < 100) :
@@ -37,8 +37,8 @@ def solver_sor(data):
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
-    print("EXECUTION TIME:" + " %s seconds " % (time.time() - t))
-    print(phi)
-    return phi
+    print("EXECUTION TIME:" + " %s seconds " % (time.time_ns() - t))
+    # print(phi)
+    # return phi
 
 main()

@@ -92,17 +92,17 @@ object SOR {
         
         var duration = (System.nanoTime - time_ini) / 1e9d
 
-        println("Respuesta X : ")
-        for(i <- 0 to Xt.length-1){
-            print("["+ Xt(i)(0) + " ]")
-        }
-        println("")
+        // println("Respuesta X : ")
+        // for(i <- 0 to Xt.length-1){
+        //     print("["+ Xt(i)(0) + " ]")
+        // }
+        // println("")
 
 
         println("EXECUTION TIME:" + duration + "seconds")
 
      }
-     
+
     def distance(xs: Array[Double], ys: Array[Double]) = {
         sqrt((xs zip ys).map { case (x,y) => pow(y - x, 2) }.sum)
     }   

@@ -102,8 +102,8 @@ func sor_solver(A []Array, b []float64) {
 		errado = max
 		iteracion = iteracion + 1
 	}
-	fmt.Println("Respuesta X: ", X)
-	fmt.Println("")
+	// fmt.Println("Respuesta X: ", X)
+	// fmt.Println("")
 	elapsed := time.Since(start)
 	fmt.Println("Tiempo :", elapsed)
 }
