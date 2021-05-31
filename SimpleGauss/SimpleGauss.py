@@ -43,10 +43,6 @@ def simple_gauss(df):
         
     print("EXECUTION TIME:" + " %s seconds " % (time.time() - start_time))
     # Displaying solution
-    print('Required solution is: ')
-    for i in range(n):
-        print('X%d = %f' %(i,x[i]), end = '\t')
-
 
 if __name__ == '__main__':
     main()

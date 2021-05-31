@@ -58,9 +58,5 @@ object GaussSimple {
         var duration = (System.nanoTime - t1) / 1e9d
 
         println("EXECUTION TIME:" + duration + "seconds")
-
-        for ( i <- 0 to n-1){
-            println("x" + i + "= " + x(i))
-        }
     }
 }

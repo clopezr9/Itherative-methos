@@ -61,7 +61,6 @@ function gaussSimple(augmented_matrix, n)
         end
         print("EXECUTION TIME: ")
     end
-    println(x) 
 end
 
 main(ARGS)
