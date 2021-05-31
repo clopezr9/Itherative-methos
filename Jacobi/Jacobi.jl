@@ -1,4 +1,4 @@
-using Base: func_for_method_checked
+using Base:func_for_method_checked
 using LinearAlgebra
 using CSV
 using DataFrames
@@ -42,7 +42,7 @@ function readCSVFile(file_name)
         end
     end
 
-    return A,b 
+    return A, b 
 
 end
 
@@ -87,30 +87,30 @@ function dotProduct(A, b, l)
 end
 
 function jacobi(A, b, N, rc)
-    @time begin
 
-        ig = zeros(size(A, 1))
-        l = size(A)[1]
+    start_time = time_ns()
+    ig = zeros(size(A, 1))
+    l = size(A)[1]
 
-        residual = norm(b - A * ig, 2)
+    residual = norm(b - A * ig, 2)
         # println("residual: ", residual)
 
-        D = Diagonal(A)
+    D = Diagonal(A)
         # println("D:", D)
 
-        R = A - D
+    R = A - D
         # println("R:", R)
 
-        i = 0
-        while (i < N || residual > rc)
-            residual = norm(b - A * ig, 2)
-            aux = (b - (dotProduct(R, ig, l)))
-            ig = division(aux, D, l)
-            i = i + 1
-        end
-        print("EXECUTION TIME: ")
+    i = 0
+    while (i < N || residual > rc)
+        residual = norm(b - A * ig, 2)
+        aux = (b - (dotProduct(R, ig, l)))
+        ig = division(aux, D, l)
+        i = i + 1
     end
-    println(ig)
+    end_time = time_ns()
+    timens = end_time - start_time
+    print("EXECUTION TIME: ", timens, " nanoseconds")
 end
 
 main(ARGS)

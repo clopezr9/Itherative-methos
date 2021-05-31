@@ -19,6 +19,7 @@ func main() {
 		fmt.Println(file_name, ":")
 		var a, b = readCSVFile(file_name)
 		jacobi(a, b, N)
+	}
 }
 
 func readCSVFile(file_name string) ([]Array, []float64) {
@@ -135,6 +136,6 @@ func jacobi(A []Array, b []float64, N int) {
 		ig = division(substraction(b, dot(R, ig, l), l), D, l)
 	}
 	duration := time.Since(start)
-	fmt.Println("EXECUTION TIME: ", duration.Seconds())
-	fmt.Println("Ans:", ig)
+	fmt.Println("EXECUTION TIME: ", duration.Nanoseconds())
+	//fmt.Println("Ans:", ig)
 }
