@@ -19,45 +19,10 @@ def read_csv_file (file_name):
     b = my_data[:,n-1]
     return A, b
 
-
-def dominant(A):
-    for i in range(len(A)):
-        dom = abs(A[i][i])
-        count = 0
-        for j in range(len(A)):
-            count = count + abs(A[i][j])
-        count = count - dom
-        if dom < count:
-            return False
-    return True
-            
-def make_dominant(A, b):
-    #number of permutations
-    C = [0,0]
-    perm = list(permutations(A))
-    #print(perm)
-    permb = list(permutations(b))
-    #print(permb)
-    for i in range(len(perm)):
-        if (dominant(perm[i])):
-            C[0] = perm[i]
-            C[1] = permb[i]
-            return C
-    return "Not possible"
-
 def jacobi(A, b, N, rc):
     
     ig = [0] * len(A)
     residual = np.linalg.norm(np.matmul(A,ig)-b)
-    C=[]
-    if (dominant(A) != True):
-        C = make_dominant(A, b)
-        if C == "Not possible":
-            return C
-        else:
-            A = C[0]
-            b = C[1]
-            
 
     # Create a vector of the diagonal elements of A                                                                                                                                                
     # and subtract them from A                                                                                                                                                                     
@@ -71,7 +36,7 @@ def jacobi(A, b, N, rc):
         residual = np.linalg.norm(np.matmul(A,ig)-b)
         i = i + 1
 
-    print("EXECUTION TIME:" + " %s seconds " % (time.time_ns() - start_time))
+    print("EXECUTION TIME:" + " %s nano seconds " % (time.time_ns() - start_time))
 
 
 if __name__ == '__main__':

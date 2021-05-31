@@ -19,6 +19,7 @@ func main() {
 		fmt.Println(file_name, ":")
 		var a, b = readCSVFile(file_name)
 		jacobi(a, b, N)
+	}
 }
 
 func readCSVFile(file_name string) ([]Array, []float64) {
