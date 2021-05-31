@@ -15,7 +15,7 @@ function main(args)
 end
 
 function readCSVFile(file_name) 
-    df = CSV.read("test/test.csv", DataFrame)
+    df = CSV.read(file_name, DataFrame)
     i = names(df)
     l = nrow(df) + 1
     A = zeros(Float64, l, l)

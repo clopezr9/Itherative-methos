@@ -19,12 +19,7 @@ func main() {
 		fmt.Println(file_name, ":")
 		var a, b = readCSVFile(file_name)
 		jacobi(a, b, N)
-		//gaussSimple(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
-
-	//var A = [][]float64{{5.0, 2.0, -3}, {2.0, 10.0, -8.0}, {3.0, 8.0, 13.0}}
-	//var b = []float64{1.0, 4.0, 7.0}
-	//var N int = 100
 }
 
 func readCSVFile(file_name string) ([]Array, []float64) {
@@ -105,63 +100,6 @@ func division(a []float64, b []float64, l int) []float64 {
 		result[i] = a[i] / b[i]
 	}
 	return result
-}
-
-func matrix_permutations(arr [][]float64) [][][]float64 {
-	var helper func([][]float64, int)
-	res := [][][]float64{}
-
-	helper = func(arr [][]float64, n int) {
-		if n == 1 {
-			tmp := make([][]float64, len(arr))
-			copy(tmp, arr)
-			res = append(res, tmp)
-		} else {
-			for i := 0; i < n; i++ {
-				helper(arr, n-1)
-				if n%2 == 1 {
-					tmp := arr[i]
-					arr[i] = arr[n-1]
-					arr[n-1] = tmp
-				} else {
-					tmp := arr[0]
-					arr[0] = arr[n-1]
-					arr[n-1] = tmp
-				}
-			}
-		}
-	}
-	helper(arr, len(arr))
-	return res
-}
-
-func permutations(arr []float64) []Array {
-
-	var helper func([]float64, int)
-	res := []Array{}
-
-	helper = func(arr []float64, n int) {
-		if n == 1 {
-			tmp := make([]float64, len(arr))
-			copy(tmp, arr)
-			res = append(res, tmp)
-		} else {
-			for i := 0; i < n; i++ {
-				helper(arr, n-1)
-				if n%2 == 1 {
-					tmp := arr[i]
-					arr[i] = arr[n-1.0]
-					arr[n-1.0] = tmp
-				} else {
-					tmp := arr[0]
-					arr[0] = arr[n-1.0]
-					arr[n-1.0] = tmp
-				}
-			}
-		}
-	}
-	helper(arr, len(arr))
-	return res
 }
 
 func jacobi(A []Array, b []float64, N int) {

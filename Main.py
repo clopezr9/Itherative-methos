@@ -1,5 +1,7 @@
 import os
 import sys
+import numpy as np
+from itertools import permutations 
 
 def main():
     method = sys.argv[1]
@@ -12,7 +14,9 @@ def main():
     elif (method == 'Jacobi'):
         commands('Jacobi', args)
 
+
 def commands (file, args):
+
     go_com = 'go run ' + file + '/' + file + '.go '
     julia_com = 'julia ' + file + '/' + file + '.jl '
     scala_run_com = 'scala ' + file + '/' + file + '.scala '
