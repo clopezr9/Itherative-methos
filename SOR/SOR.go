@@ -13,15 +13,16 @@ func main() {
 	args := os.Args
 	for i := 1; i < len(args); i++ {
 		file_name := args[i]
-		fmt.Println(file_name, ":")
+		fmt.Println(args, ":")
 		gaussSimple(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
 }
-func readCSVFile(file_name string) ([]Array, int) {
+func readCSVFile(file_name string) ([]Array, []float64) {
 	csvFile, err := os.Open(file_name)
 	if err != nil {
 		fmt.Println(err)
 	}
+	fmt.Println("Successfully Opened CSV file")
 	defer csvFile.Close()
 
 	csvLines, err := csv.NewReader(csvFile).ReadAll()
@@ -29,9 +30,8 @@ func readCSVFile(file_name string) ([]Array, int) {
 		fmt.Println(err)
 	}
 
-	str := strings.Split(file_name, "-")[0]
-	line_length, err := strconv.Atoi(str)
-	augmented_matrix := []Array{}
+	matrix := []Array{}
+	b := []float64{}
 	for _, line := range csvLines {
 		line_length := len(line)
 		array_aux := []float64{}
@@ -40,22 +40,31 @@ func readCSVFile(file_name string) ([]Array, int) {
 			if err != nil {
 				fmt.Println(err)
 			}
+			if i == line_length-1 {
+				b = append(b, line_i)
+				break
+			}
 			array_aux = append(array_aux, line_i)
 		}
-		augmented_matrix = append(augmented_matrix, array_aux)
+		matrix = append(matrix, array_aux)
 	}
+	fmt.Println(matrix)
+	fmt.Println(b)
 
-	return augmented_matrix, line_length
+	return matrix, b
 }
 
-	var slice = make([]float64, n)
+func gaussSimple(A []Array, c []float64) {
+	println(len(A))
+	var n int = len(A)
+	
+	var slice = make([][]float64, n)
+	var b [n]][1] float64 := slice
 	for i := 0; i < n; i++ {
-		if augmented_matrix[i][i] == 0.0 {
-			return
+		for j := 0; j < n; j++ {
+			// print(A[i][j])
+			print(b[i][0])
 		}
-		for j := i + 1; j < n; j++ {
-			slice[i] = augmented_matrix[i][j]
-			println(augmented_matrix[i][j])
-		}
+		println()
 	}
 }
