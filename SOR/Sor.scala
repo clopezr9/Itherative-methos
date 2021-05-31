@@ -3,11 +3,11 @@ import javax.print.DocFlavor.INPUT_STREAM
 import javax.print.attribute.standard.PrinterURI
 import math._
 import java.io.File
-object Sor {
+object SOR {
 	def main(args: Array[String]) {
         var time_ini = System.currentTimeMillis()
-        var dir = new java.io.File("../test/").listFiles.filter(_.getName.endsWith("3-0.csv")) //en test3.csv se le pasa el arg, osea el csv
-        var C = readCSV(dir)
+         //en test3.csv se le pasa el arg, osea el csv
+        var C = readCSV()
         
         var B = Array.ofDim[Double](C.length,1)
         var BtoArray = Array.fill(C.length){0.0}
@@ -86,8 +86,9 @@ object Sor {
         println("Tiempo: "+ total_time)
     }
 
-    def readCSV(archivo:Array[File]) : Array[Array[Double]] = {
-    io.Source.fromFile(archivo(0))
+    def readCSV() : Array[Array[Double]] = {
+    var dir = new java.io.File("../test/").listFiles.filter(_.getName.endsWith("3-0.csv"))
+    io.Source.fromFile(dir(0))
     .getLines()
     .map(_.split(",").map(_.trim.toDouble))
     .toArray
