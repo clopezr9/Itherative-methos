@@ -65,17 +65,13 @@ def jacobi(A, b, N, rc):
     R = A - np.diagflat(D)
     # Iterate for N times
     i = 0
-    start_time = time.time()
+    start_time = time.time_ns()
     while (i < N or residual > rc):
         ig = (b - np.dot(R,ig)) / D
         residual = np.linalg.norm(np.matmul(A,ig)-b)
         i = i + 1
 
-    print("EXECUTION TIME:" + " %s seconds " % (time.time() - start_time))
-    # Displaying solution
-    print('Required solution is: ')
-    for i in range(len(ig)):
-        print('X%d = %f' %(i,ig[i]), end = '\t')
+    print("EXECUTION TIME:" + " %s seconds " % (time.time_ns() - start_time))
 
 
 if __name__ == '__main__':

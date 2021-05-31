@@ -109,7 +109,6 @@ function jacobi(A, b, N, rc)
         end
         print("EXECUTION TIME: ")
     end
-    println(ig)
 end
 
 main(ARGS)

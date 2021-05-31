@@ -137,5 +137,5 @@ func jacobi(A []Array, b []float64, N int) {
 	}
 	duration := time.Since(start)
 	fmt.Println("EXECUTION TIME: ", duration.Seconds())
-	fmt.Println("Ans:", ig)
+	//fmt.Println("Ans:", ig)
 }
