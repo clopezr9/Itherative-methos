@@ -4,17 +4,28 @@ import javax.print.DocFlavor.INPUT_STREAM
 object GaussSimple {
     
     def main(args: Array[String]): Unit = {
-        var augmented_matrix = Array(Array(-1.2, 0.0, 0.0, 4.0, -1.0, 0.0, 61.0),
-                                Array(0.0, -1.0, 0.0, -1.0, 4.0, -1.0, 14.0),
-                                Array(4.0, -1.0, 1.0, -1.0, 0.0, 0.0, 8.0),
-                                Array(-1.0, 5.0, -1.0, 0.0, -1.0, 0.0, 5.0),
-                                Array(0.0, -1.0, 5.0, 0.0, 0.0, -1.0, 9.0),
-                                Array(0.0, 0.0, -1.0, 0.0, -1.0, 6.0, 23.0))
-        var n = 6
-        gaussSimple(augmented_matrix, n)
+        for(arg<-args){
+            var param = readCSVFile(arg)
+            var (aug_matrix, n) = param
+            gaussSimple(aug_matrix, n)
+        }
     }
 
-    def gaussSimple(aug_matrix: Array[Array[Double]], n : Int): Unit = {
+    def readCSVFile(file: String): (Array[Array[Double]], Int) = {
+        var C = io.Source.fromFile(file).getLines().map(_.split(",").map(_.trim.toDouble)).toArray
+        var n = C.length
+        var m = C(0).length
+        var aug_matrix = Array.ofDim[Double](n, m)
+
+        for(i <- 0 to n-1){
+           for (j <- 0 to n){
+              aug_matrix(i)(j) = C(i)(j)
+           }
+        }
+        return (aug_matrix , n)
+    }
+
+    def gaussSimple(aug_matrix: Array[Array[Double]], n: Int): Unit = {
         var x = Array.fill(n)(0.0)
         var t1 = System.nanoTime
 
@@ -46,7 +57,7 @@ object GaussSimple {
 
         var duration = (System.nanoTime - t1) / 1e9d
 
-        println("Execution Time:" + duration + "seconds")
+        println("EXECUTION TIME:" + duration + "seconds")
 
         for ( i <- 0 to n-1){
             println("x" + i + "= " + x(i))
