@@ -3,19 +3,19 @@ using LinearAlgebra
 using CSV
 using DataFrames
 
-function main()
-    df = CSV.read("test/test.csv", DataFrame)
-    A,b = createAB(df)
-    N = 100
-    residual_converge = 1e-8
+function main(args)
 
-    println("A: ", A)
-    println("b: ", b)
-    println("x: ", jacobi(A, b, N, residual_converge))
+    for i in 1:length(args)
+        println(args[i], ":")
+        N = 100
+        residual_converge = 1e-8
+        A, b = readCSVFile(args[i])
+        jacobi(A, b, N, residual_converge)
+    end
 end
 
-function createAB(df)
-
+function readCSVFile(file_name) 
+    df = CSV.read("test/test.csv", DataFrame)
     i = names(df)
     l = nrow(df) + 1
     A = zeros(Float64, l, l)
@@ -42,6 +42,7 @@ function createAB(df)
     end
 
     return A,b 
+
 end
 
 function dominant(A)
@@ -91,13 +92,13 @@ function jacobi(A, b, N, rc)
         l = size(A)[1]
 
         residual = norm(b - A * ig, 2)
-    # println("residual: ", residual)
+        # println("residual: ", residual)
 
         D = Diagonal(A)
-    # println("D:", D)
+        # println("D:", D)
 
         R = A - D
-    # println("R:", R)
+        # println("R:", R)
 
         i = 0
         while (i < N || residual > rc)
@@ -106,8 +107,9 @@ function jacobi(A, b, N, rc)
             ig = division(aux, D, l)
             i = i + 1
         end
-        return ig
+        print("EXECUTION TIME: ")
     end
+    println(ig)
 end
 
-main()
+main(ARGS)
