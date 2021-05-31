@@ -1,131 +1,63 @@
 package main
 
 import (
-	"errors"
+	"encoding/csv"
 	"fmt"
-	"math"
-	"reflect"
-	"time"
+	"os"
+	"strconv"
+	"strings"
 )
 
+type Array []float64
+
 func main() {
-	start := time.Now()
-
-	A := [][]float64{
-		{3., -0.1, -0.2},
-		{0.1, 7, -0.3},
-		{0.3, -0.2, 10},
+	args := os.Args
+	for i := 1; i < len(args); i++ {
+		file_name := args[i]
+		fmt.Println(file_name, ":")
+		gaussSimple(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
-
-	B := [][]float64{
-		{7.85},
-		{-19.3},
-		{71.4},
-	}
-	X0 := [][]float64{
-		{0., 0., 0.},
-	}
-	// var x int = len(A)
-	// var BtoArray [x]float64
-
-	// for fila := 0; fila < len(B); fila++ {
-
-	// 	B(i)(0) = C(i)(C(1).length-1)
-	// 	BtoArray.update(i,B(i)(0))
-	// }
-
-	revision, _ := multiply(A, X0)
-
-	println(reflect.ValueOf(revision).Kind())
-
-	// for i := 0; i < len(revision); i += 1 {
-	// 	for j := 0; j < len(revision[0]); j += 1 {
-	// 		print(revision[i][j])
-	// 		print("holi")
-	// 	}
-	// 	println()
-	// }
-
-	var tolerancia float64 = 0.0000001
-	var iteracionMax int = 100
-
-	var n int = len(A)
-	var m int = len(A)
-	var omega float64 = 0.5
-	var X = X0
-
-	diferencia := [][]float64{
-		{1, 1, 1},
-	}
-
-	var errado = tolerancia * 2
-	var iteracion int = 0
-
-	for !(errado <= tolerancia || iteracion > iteracionMax) {
-		for fila := 0; fila < n; fila++ {
-			var suma float64 = 0
-			for columna := 0; columna < m; columna++ {
-				if fila != columna {
-					suma = (A[fila][columna]) * (X[0][columna])
-				}
-			}
-			var nuevo = (1.0-omega)*X[0][fila] + (omega/A[fila][fila])*(B[fila][0]-suma)
-
-			diferencia[0][fila] = math.Abs(nuevo - X[0][fila])
-
-			X[0][fila] = nuevo
-
-		}
-		var max float64
-		for _, j := range diferencia {
-			var n float64
-			for _, v := range j {
-				if v > n {
-					n = v
-					max = n
-				}
-			}
-		}
-		errado = max
-		iteracion = iteracion + 1
-	}
-
-	if iteracion > iteracionMax {
-		X = [][]float64{{0., 0., 0.}}
-	}
-
-	fmt.Println("Error:", errado, "--- Iteraciones hechas:", iteracion)
-	fmt.Println("")
-	fmt.Println("Respuesta X: ", X)
-	fmt.Println("")
-	//fmt.Println("Verificar A*X=B: ", revision)
-	fmt.Println("")
-
-	elapsed := time.Since(start)
-	fmt.Println("Tiempo de ejecucion:", elapsed)
 }
-
-func transpose(x [][]float64) [][]float64 {
-	out := make([][]float64, len(x[0]))
-	for i := 0; i < len(x); i += 1 {
-		for j := 0; j < len(x[0]); j += 1 {
-			out[j] = append(out[j], x[i][j])
-		}
+func readCSVFile(file_name string) ([]Array, int) {
+	csvFile, err := os.Open(file_name)
+	if err != nil {
+		fmt.Println(err)
 	}
-	return out
-}
-func multiply(x, y [][]float64) ([]float64, error) {
-	if len(x[0]) != len(y) {
-		return nil, errors.New("Multiplicación de matrices no es posible")
+	defer csvFile.Close()
+
+	csvLines, err := csv.NewReader(csvFile).ReadAll()
+	if err != nil {
+		fmt.Println(err)
 	}
 
-	out := make([]float64, len(x))
-	for i := 0; i < len(x); i++ {
-		for j := 0; j < len(y[0]); j++ {
-			for k := 0; k < len(y); k++ {
-				out[i] += x[i][k] * y[k][j]
+	str := strings.Split(file_name, "-")[0]
+	line_length, err := strconv.Atoi(str)
+	augmented_matrix := []Array{}
+	for _, line := range csvLines {
+		line_length := len(line)
+		array_aux := []float64{}
+		for i := 0; i < line_length; i++ {
+			line_i, err := strconv.ParseFloat(line[i], 64)
+			if err != nil {
+				fmt.Println(err)
 			}
+			array_aux = append(array_aux, line_i)
+		}
+		augmented_matrix = append(augmented_matrix, array_aux)
+	}
+
+	return augmented_matrix, line_length
+}
+func gaussSimple(augmented_matrix []Array, n int) {
+
+	var slice = make([]float64, n)
+	for i := 0; i < n; i++ {
+		if augmented_matrix[i][i] == 0.0 {
+			return
+		}
+		for j := i + 1; j < n; j++ {
+			slice[i] = augmented_matrix[i][j]
+			println(augmented_matrix[i][j])
 		}
 	}
-	return out, nil
 }
