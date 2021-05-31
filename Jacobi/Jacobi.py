@@ -1,7 +1,24 @@
 import numpy as np
 import time
-from numpy import genfromtxt
+import sys
 from itertools import permutations 
+
+def main():
+    args = sys.argv[1:]
+    N = 100 #number of iterations
+    residual_converg = 1e-8
+    for arg in args:
+        print("\n" + arg)
+        a,b = read_csv_file(arg)
+        jacobi(a, b, N, residual_converg)
+
+def read_csv_file (file_name):
+    my_data = np.genfromtxt(file_name, delimiter=',')
+    n = my_data.shape[1]
+    A =  np.delete(my_data, n-1, 1)
+    b = my_data[:,n-1]
+    return A, b
+
 
 def dominant(A):
     for i in range(len(A)):
@@ -28,8 +45,9 @@ def make_dominant(A, b):
             return C
     return "Not possible"
 
-def jacobi(A, b, N, ig, rc):
+def jacobi(A, b, N, rc):
     
+    ig = [0] * len(A)
     residual = np.linalg.norm(np.matmul(A,ig)-b)
     C=[]
     if (dominant(A) != True):
@@ -46,33 +64,19 @@ def jacobi(A, b, N, ig, rc):
     D = np.diag(A)
     R = A - np.diagflat(D)
     # Iterate for N times
-    i=0
+    i = 0
+    start_time = time.time()
     while (i < N or residual > rc):
         ig = (b - np.dot(R,ig)) / D
         residual = np.linalg.norm(np.matmul(A,ig)-b)
         i = i + 1
-    return ig
+
+    print("EXECUTION TIME:" + " %s seconds " % (time.time() - start_time))
+    # Displaying solution
+    print('Required solution is: ')
+    for i in range(len(ig)):
+        print('X%d = %f' %(i,ig[i]), end = '\t')
 
 
-residual_converg = 1e-8
-
-my_data = genfromtxt('test.csv', delimiter=',')
-n = my_data.shape[1]
-A =  np.delete(my_data, n-1, 1)
-b = my_data[:,n-1]
-
-#A = [[2.0,10.0,-8.0], [3.0, 8.0, 13.0], [5.0,2.0, -3]]
-#b = [4.0, 7.0, 1.0]
-ig = [0.0,0.0,0.0]#initial guess
-t = time.time()
-N = 25 #number of iterations
-
-sol = jacobi(A, b, N, ig, residual_converg)
-
-print ("A:", A)
-
-print ("b:", b)
-
-print ("x:", sol)
-
-print("time: ", (time.time())-t)
+if __name__ == '__main__':
+    main()

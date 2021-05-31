@@ -1,43 +1,48 @@
+using Base: func_for_method_checked
 using LinearAlgebra
 using CSV
 using DataFrames
-@time begin
 
-function main()
-    df = CSV.read("test.csv", DataFrame)
+function main(args)
+
+    for i in 1:length(args)
+        println(args[i], ":")
+        N = 100
+        residual_converge = 1e-8
+        A, b = readCSVFile(args[i])
+        jacobi(A, b, N, residual_converge)
+    end
+end
+
+function readCSVFile(file_name) 
+    df = CSV.read("test/test.csv", DataFrame)
     i = names(df)
-    l = nrow(df)+1
+    l = nrow(df) + 1
     A = zeros(Float64, l, l)
     b = zeros(Float64, l, 1)
 
-    for j in 1:l+1
-        if j == l+1
-            b[1,1] = parse(Float64,i[j])
+    for j in 1:l + 1
+        if j == l + 1
+            b[1,1] = parse(Float64, i[j])
         else 
-            A[1,j] = parse(Float64,i[j])
+            A[1,j] = parse(Float64, i[j])
         end
     end
 
     df1 = Matrix(df)
     
-    for i in 1:l-1
-        for j in 1:l+1
-            if j == l+1
-                b[i+1,1] = df1[i,j]
+    for i in 1:l - 1
+        for j in 1:l + 1
+            if j == l + 1
+                b[i + 1,1] = df1[i,j]
             else 
-                A[i+1,j] = df1[i,j]
+                A[i + 1,j] = df1[i,j]
             end
         end
     end
 
-    N = 100
-    ig = zeros(size(A,1))
-    #println("ig: ", ig)
-    residual_converge = 1e-8
+    return A,b 
 
-    println("A: ", A)
-    println("b: ",b)
-    println("x: ", jacobi(A, b, N, ig, residual_converge))
 end
 
 function dominant(A)
@@ -73,36 +78,38 @@ function dotProduct(A, b, l)
     for i in 1:l
         aux = 0.0
         for j in 1:l 
-            aux = aux + (b[j]*A[i,j])
+            aux = aux + (b[j] * A[i,j])
         end
         r[i] = aux
     end
     return r
 end
 
-function jacobi(A, b, N, ig, rc)
-    
-    l = size(A)[1]
+function jacobi(A, b, N, rc)
+    @time begin
 
-    residual = norm(b - A * ig,2)
-    #println("residual: ", residual)
+        ig = zeros(size(A, 1))
+        l = size(A)[1]
 
-    D = Diagonal(A)
-    #println("D:", D)
+        residual = norm(b - A * ig, 2)
+        # println("residual: ", residual)
 
-    R = A - D
-    #println("R:", R)
+        D = Diagonal(A)
+        # println("D:", D)
 
-    i = 0
-    while (i < N || residual > rc)
-        residual = norm(b - A * ig,2)
-        aux = (b - (dotProduct(R, ig, l)))
-        ig = division(aux, D, l)
-        i = i + 1
+        R = A - D
+        # println("R:", R)
+
+        i = 0
+        while (i < N || residual > rc)
+            residual = norm(b - A * ig, 2)
+            aux = (b - (dotProduct(R, ig, l)))
+            ig = division(aux, D, l)
+            i = i + 1
+        end
+        print("EXECUTION TIME: ")
     end
-    return ig
+    println(ig)
 end
 
-main()
-
-end 
+main(ARGS)
