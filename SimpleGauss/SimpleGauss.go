@@ -81,5 +81,4 @@ func gaussSimple(augmented_matrix []Array, n int) {
 	}
 	duration := time.Since(start)
 	fmt.Println("EXECUTION TIME: ", duration.Seconds())
-	fmt.Println("Ans:", x)
 }
