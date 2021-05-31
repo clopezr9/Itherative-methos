@@ -1,13 +1,33 @@
 import numpy as np
 import time
 from numpy import genfromtxt
+import sys
 
-def sor_solver(A, b, omega, initial_guess, convergence_criteria, kmax):
+def main():
+    args = sys.argv[1:]
+    for arg in args:
+        print("\n"+ arg)
+        phi = solver_sor(read_csv_file(arg))
+    np.savetxt("../answers/3-0-res.csv", phi, delimiter = ",")
+
+def read_csv_file(file_name):
+    my_data = genfromtxt(file_name, delimiter=',')
+    return my_data
+
+def solver_sor(data):
+    n = data.shape[1]
+    A =  np.delete(data, n-1, 1)
+    b = data[:,n-1]
+    initial_guess = np.zeros(A.shape[0])
+    residual_convergence = 1e-6
+    omega = 1.5
+    kmax = 0
     step = 0
     phi = initial_guess[:]
-    residual = np.linalg.norm(np.matmul(A, phi) - b)
+    t = time.time()
 
-    while (residual > convergence_criteria or kmax < 100) :
+    residual = np.linalg.norm(np.matmul(A, phi) - b)
+    while (residual > residual_convergence or kmax < 100) :
         for i in range(A.shape[0]):
             sigma = 0
             for j in range(A.shape[1]):
@@ -17,28 +37,8 @@ def sor_solver(A, b, omega, initial_guess, convergence_criteria, kmax):
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
-    return phi
-
-def main():
-    
-    residual_convergence = 1e-6
-    omega = 0.5
-
-    #en test3.csv va el args    
-    my_data = genfromtxt('../test/'+'3-0.csv', delimiter=',')
-    n = my_data.shape[1]
-    A =  np.delete(my_data, n-1, 1)
-    b = my_data[:,n-1]
-    initial_guess = np.zeros(A.shape[0])
-
-    t = time.time()
-    kmax = 0
-
-    phi = sor_solver(A, b, omega, initial_guess, residual_convergence, kmax)
-    
+    print("EXECUTION TIME:" + " %s seconds " % (time.time() - t))
     print(phi)
-    tiempo = time.time()- t 
-    print("El tiempo fue de [{0:6.4f}]".format(tiempo))
-    np.savetxt("../answers/3-0-res.csv", phi, delimiter = ",")
+    return phi
 
 main()
