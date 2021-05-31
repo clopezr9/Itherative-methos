@@ -4,28 +4,50 @@ import javax.print.attribute.standard.PrinterURI
 import math._
 import java.io.File
 object SOR {
-	def main(args: Array[String]) {
-        var time_ini = System.currentTimeMillis()
-         //en test3.csv se le pasa el arg, osea el csv
-        var C = readCSV()
+	def main(args: Array[String]): Unit = {
+        for(arg<-args){
+            var param = readCSVFile(arg)
+            var (aug_matrix) = param
+            sor_solver(aug_matrix)
+        }
+    }
+    def readCSVFile(file: String): (Array[Array[Double]]) = {
+        var C = io.Source.fromFile(file).getLines().map(_.split(",").map(_.trim.toDouble)).toArray
+        var n = C.length
+        var m = C(0).length
+        var aug_matrix = Array.ofDim[Double](n, m)
+
+        for(i <- 0 to n-1){
+           for (j <- 0 to n){
+              aug_matrix(i)(j) = C(i)(j)
+           }
+        }
+        return (aug_matrix)
+    }
+    def sor_solver(aug_matrix: Array[Array[Double]]): Unit = {
         
-        var B = Array.ofDim[Double](C.length,1)
-        var BtoArray = Array.fill(C.length){0.0}
+        var B = Array.ofDim[Double](aug_matrix.length,1)
+        var BtoArray = Array.fill(aug_matrix.length){0.0}
        
           for(i <- 0 to B.length-1){
-                  B(i)(0) = C(i)(C(1).length-1)
+                  B(i)(0) = aug_matrix(i)(aug_matrix(1).length-1)
                   BtoArray.update(i,B(i)(0))
           }
-        var A = Array.ofDim[Double](C.length,C(1).length-1)
+        var A = Array.ofDim[Double](aug_matrix.length,aug_matrix(1).length-1)
 
-        for(i <- 0 to C.length-1){
-             for(j <- 0 to C(1).length-2){
-                A(i)(j) = C(i)(j)
+        for(i <- 0 to aug_matrix.length-1){
+             for(j <- 0 to aug_matrix(1).length-2){
+                A(i)(j) = aug_matrix(i)(j)
+             }
+          }
+          for(i <- 0 to aug_matrix.length-1){
+             for(j <- 0 to aug_matrix(1).length-2){
+                A(i)(j) = aug_matrix(i)(j)
              }
           }
 
-	    var tol = Array.ofDim[Double](C.length,C.length)
-        var X0  = Array.ofDim[Double](C.length)
+	    var tol = Array.ofDim[Double](aug_matrix.length,aug_matrix.length)
+        var X0  = Array.ofDim[Double](aug_matrix.length)
         
         var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum)
         
@@ -35,12 +57,14 @@ object SOR {
         var iteracionMax: Int = 100
         var Omega: Double = 0.5
         
-        var n: Int = C.size    
-        var m: Int = C.size
+        var n: Int = aug_matrix.size    
+        var m: Int = aug_matrix.size
 
         var X = X0
         var iteracion : Int = 0
         
+        var time_ini = System.nanoTime()
+
         while ((aiuda > tolerancia || iteracion > 100)){
             for(fila <- 0 to n - 1){
                 var suma: Double = 0
@@ -59,42 +83,28 @@ object SOR {
 
             aiuda = distance(matMul,BtoArray)
             iteracion = iteracion + 1
-        }       
+        }     
         
         var Xt = Array(Array(X(0)))
         for(i <- 1 to X.length-1){
             Xt ++= Array(Array(X(i)))
         }
+        
+        var duration = (System.nanoTime - time_ini) / 1e9d
 
-        if(iteracion > iteracionMax){
-            Xt = Array(Array(0),
-                     Array(0),
-                     Array(0))
-        }
-
-        var revision = Array(0.0, 0.0, 0.0)
-        
-        
-        
         println("Respuesta X : ")
         for(i <- 0 to Xt.length-1){
             print("["+ Xt(i)(0) + " ]")
         }
-        var time_fi = System.currentTimeMillis()
-        var total_time = (time_fi-time_ini)
-        println()
-        println("Tiempo: "+ total_time)
-    }
+        println("")
 
-    def readCSV() : Array[Array[Double]] = {
-    var dir = new java.io.File("../test/").listFiles.filter(_.getName.endsWith("3-0.csv"))
-    io.Source.fromFile(dir(0))
-    .getLines()
-    .map(_.split(",").map(_.trim.toDouble))
-    .toArray
-}
-def distance(xs: Array[Double], ys: Array[Double]) = {
-  sqrt((xs zip ys).map { case (x,y) => pow(y - x, 2) }.sum)
-}
+
+        println("EXECUTION TIME:" + duration + "seconds")
+
+     }
+     
+    def distance(xs: Array[Double], ys: Array[Double]) = {
+        sqrt((xs zip ys).map { case (x,y) => pow(y - x, 2) }.sum)
+    }   
 
 }
