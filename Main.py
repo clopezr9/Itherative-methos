@@ -28,15 +28,15 @@ def commands (file, args):
         scala_run_com += arg + ' '
         python_com += arg + ' '
 
-        print('\nLENGUAGE: GO')
-        os.system(go_com)
-        print("\nLENGUAGE: JULIA")
-        os.system(julia_com)
-        print("\nLENGUAGE: SCALA")
-        os.system('scalac ' + file + '/' + file + '.scala ')
-        os.system(scala_run_com)
-        print("\nLENGUAGE: PYTHON")
-        os.system(python_com)
+    print('\nLANGUAGE: GO')
+    os.system(go_com)
+    print("\nLANGUAGE: JULIA")
+    os.system(julia_com)
+    print("\nLANGUAGE: SCALA")
+    os.system('scalac ' + file + '/' + file + '.scala ')
+    os.system(scala_run_com)
+    print("\nLANGUAGE: PYTHON")
+    os.system(python_com)
 
 if __name__ == '__main__':
     main()
