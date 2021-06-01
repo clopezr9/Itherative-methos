@@ -5,6 +5,7 @@ object GaussSimple {
     
     def main(args: Array[String]): Unit = {
         for(arg<-args){
+            println(args + ":")
             var param = readCSVFile(arg)
             var (aug_matrix, n) = param
             gaussSimple(aug_matrix, n)
@@ -55,8 +56,7 @@ object GaussSimple {
             x(i) = x(i)/aug_matrix(i)(i)
         }
 
-        var duration = (System.nanoTime - t1) / 1e9d
-
+        var duration = (System.nanoTime - t1)
         println("EXECUTION TIME:" + duration + " nanoseconds")
     }
 }
