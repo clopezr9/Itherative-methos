@@ -5,36 +5,27 @@ import math._
 import java.io.File
 object Jacobi {
 	def main(args: Array[String]): Unit = {
-   
+      
         var N = 100
         for(arg<-args){
             var ab = readCSVFile(arg)
             var (a, b, l) = ab
             jacobi(a,b,l, N)
         }
-
     }
 
-   def jacobi(A: Array[Array[Double]], B:Array[Array[Double]], l:Int, N:Int) {
+   def jacobi(A: Array[Array[Double]], B:Array[Double], l:Int, N:Int) {
 
-      var tol = Array.ofDim[Double](l,l)
-      var BtoArray = Array.fill(l){0.0}
-      //for (i <- 0 to l-1){
-      //   for (j <- 0 to l-1){
-      //      println(tol(i)(j))
-      //   }
-      //}
       var ig  = Array.ofDim[Double](l)
-      var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum) 
+
+      var tol = distance(dotProduct(A,ig, l), B)
+
       var tolerancia: Double = 0.00001
-      var aiuda = distance(matMul,BtoArray)
       var D = Array.fill(l)(0.0)
          for(i <- 0 to l-1){
             for(j <- 0 to l-1){
                if(i == j){
                   D(i) = A(i)(j)
-                  //println("Position of D: ", i)
-                  //println("D: " , D(i))
                }
             }
          }
@@ -50,26 +41,19 @@ object Jacobi {
 
       var iteracion = 0
       var t1 = System.nanoTime
-      while((iteracion < N )) {//|| aiuda > tolerancia)){
+      while((iteracion < N || tol > tolerancia)){
          
          ig = division(substraction(B, dotProduct(R, ig, l),l), D, l)
-
-         //tol.update(fila,ig)
+         tol = distance(dotProduct(A,ig, l), B)
          iteracion = iteracion + 1
-         //var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum)
-         //aiuda = distance(matMul,BtoArray)
-
       }
 
       var duration = (System.nanoTime - t1) / 1e9d
       println("EXECUTION TIME:" + duration + " nanoseconds")
 
-      //for(i<-0 to l-1){
-      //   println("x" + i + "= " + ig(i))
-      //}
    }
 
-   def readCSVFile(file: String) : (Array[Array[Double]], Array[Array[Double]], Int) = {
+   def readCSVFile(file: String) : (Array[Array[Double]], Array[Double], Int) = {
 
       var C = io.Source.fromFile(file).getLines().map(_.split(",").map(_.trim.toDouble)).toArray
       var l = C.length
@@ -80,11 +64,9 @@ object Jacobi {
          }
       }
 
-      var B = Array.ofDim[Double](l, l) 
+      var B = Array.fill(l)(0.0) 
       for(i <- 0 to l-1){
-            B(i)(0) = C(i)(3)
-            //println("Position: ",i,0)
-            //println("B: ",B(i)(0))
+            B(i) = C(i)(C(1).length-1)
          }
       return (A,B,l)
    }
@@ -101,10 +83,10 @@ object Jacobi {
       return r
    }
 
-   def substraction(a:Array[Array[Double]] , b:Array[Double], l:Int): Array[Double] = {
+   def substraction(a:Array[Double] , b:Array[Double], l:Int): Array[Double] = {
       var r = Array.fill(l)(0.0)
       for(i <- 0 to l-1){
-         r(i) = a(i)(0) - b(i)
+         r(i) = a(i) - b(i)
       }
       return r
    }

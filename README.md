@@ -1,1 +1,1 @@
-# Itherative-methos
+# Iterative-methods
