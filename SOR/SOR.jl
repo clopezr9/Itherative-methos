@@ -79,7 +79,8 @@ function solver_sor(A, b)
         end
         end_time = time_ns()
         exe_time = end_time - start_time
-        print("EXECUTION TIME: ", exe_time, " nanoseconds")
+        println(exe_time)
+        # print("EXECUTION TIME: ", exe_time, " nanoseconds")
         # println(X0)
     end
     
