@@ -5,7 +5,7 @@ object GaussSimple {
     
     def main(args: Array[String]): Unit = {
         for(arg<-args){
-            println(args + ":")
+            println(arg + ":")
             var param = readCSVFile(arg)
             var (aug_matrix, n) = param
             gaussSimple(aug_matrix, n)
