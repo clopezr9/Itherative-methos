@@ -55,7 +55,7 @@ object SOR {
 
         var tolerancia: Double = 0.000001
         var iteracionMax: Int = 100
-        var Omega: Double = 0.5
+        var Omega: Double = 1.5
         
         var n: Int = aug_matrix.size    
         var m: Int = aug_matrix.size
@@ -91,6 +91,11 @@ object SOR {
         }
         
         var duration = (System.nanoTime - time_ini) / 1e9d
+        println("Respuesta X : ")
+        for(i <- 0 to Xt.length-1){
+             print("["+ Xt(i)(0) + " ]")
+        }
+        println("")
 
         println("EXECUTION TIME:" + duration + " nanoseconds")
 

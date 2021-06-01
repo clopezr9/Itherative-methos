@@ -40,7 +40,7 @@ end
 
 function solver_sor(A, b) 
     X0 = zeros(size(A, 1))
-    w = 0.5
+    w = 1.5
 
     tolerancia = Float64(0.000001) 
     iteracionMax = Int(100)
@@ -81,6 +81,6 @@ function solver_sor(A, b)
         exe_time = end_time - start_time
         print("EXECUTION TIME: ", exe_time, " nanoseconds")
     end
-    # println(X0)
+    println(X0)
 
 main(ARGS)

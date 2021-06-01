@@ -38,8 +38,8 @@ def solver_sor(data):
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
-    print("EXECUTION TIME:" + " %s seconds " % (time.time_ns() - t))
-    # print(phi)
+    print("EXECUTION TIME:" + " %s nanoseconds " % (time.time_ns() - t))
+    print(phi)
     # return phi
 
 main()
