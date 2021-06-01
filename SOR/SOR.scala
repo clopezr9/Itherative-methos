@@ -90,7 +90,7 @@ object SOR {
             Xt ++= Array(Array(X(i)))
         }
         
-        var duration = (System.nanoTime - time_ini) / 1e9d
+        var duration = (System.nanoTime - time_ini)
         // println("Respuesta X : ")
         // for(i <- 0 to Xt.length-1){
         //      print("["+ Xt(i)(0) + " ]")
