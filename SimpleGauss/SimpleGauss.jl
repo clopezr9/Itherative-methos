@@ -60,7 +60,7 @@ function gaussSimple(augmented_matrix, n)
         end
     end_time = time_ns()
     exe_time = end_time - start_time
-    print("EXECUTION TIME: ", exe_time, "nanoseconds")
+    print("EXECUTION TIME: ", exe_time, " nanoseconds")
 end
 
 main(ARGS)

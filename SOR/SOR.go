@@ -105,5 +105,5 @@ func sor_solver(A []Array, b []float64) {
 	// fmt.Println("Respuesta X: ", X)
 	// fmt.Println("")
 	elapsed := time.Since(start)
-	fmt.Println("Tiempo :", elapsed.Nanoseconds())
+	fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
 }

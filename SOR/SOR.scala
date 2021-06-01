@@ -99,7 +99,7 @@ object SOR {
         // println("")
 
 
-        println("EXECUTION TIME:" + duration + "seconds")
+        println("EXECUTION TIME:" + duration + " nanoseconds")
 
      }
 
