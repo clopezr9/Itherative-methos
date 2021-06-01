@@ -64,7 +64,7 @@ func sor_solver(A []Array, b []float64) {
 
 	var n int = len(A)
 	var m int = len(A)
-	var omega float64 = 0.5
+	var omega float64 = 1.5
 	var X = X0
 	var diferencia = make([]float64, long)
 
@@ -97,7 +97,7 @@ func sor_solver(A []Array, b []float64) {
 		errado = max
 		iteracion = iteracion + 1
 	}
-	// fmt.Println("Respuesta X: ", X)
+	fmt.Println(X)
 	// fmt.Println("")
 	elapsed := time.Since(start)
 	fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
