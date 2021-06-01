@@ -15,7 +15,7 @@ func main() {
 	args := os.Args
 	for i := 1; i < len(args); i++ {
 		file_name := args[i]
-		fmt.Println(args, ":")
+		fmt.Println(file_name, ":")
 		sor_solver(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
 }
@@ -24,7 +24,6 @@ func readCSVFile(file_name string) ([]Array, []float64) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Successfully Opened CSV file")
 	defer csvFile.Close()
 
 	csvLines, err := csv.NewReader(csvFile).ReadAll()
