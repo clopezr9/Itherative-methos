@@ -30,8 +30,10 @@ def isDDM(m, n) :
 
 # Driver Code
 #  50 100 200 300 700 800
-n = 2000
-m = np.random.rand(2000,2001)
+
+n = 800
+m = np.random.rand(800,801)
+
 while True :
     if((isDDM(m, n))) :
         print (m)
