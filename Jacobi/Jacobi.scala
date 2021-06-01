@@ -25,9 +25,11 @@ object Jacobi {
       //   }
       //}
       var ig  = Array.ofDim[Double](l)
-      var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum) 
-      var tolerancia: Double = 0.00001
-      var aiuda = distance(matMul,BtoArray)
+      //var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum) 
+
+      //var tolerancia: Double = 0.00001
+      //var aiuda = distance(matMul,BtoArray)
+
       var D = Array.fill(l)(0.0)
          for(i <- 0 to l-1){
             for(j <- 0 to l-1){
@@ -50,11 +52,13 @@ object Jacobi {
 
       var iteracion = 0
       var t1 = System.nanoTime
-      while((iteracion < N )) {//|| aiuda > tolerancia)){
+      while((iteracion < N )){ //|| aiuda > tolerancia)){
          
          ig = division(substraction(B, dotProduct(R, ig, l),l), D, l)
+         //for (i<-0 to l-1){
+         //   tol.update(i,ig)
+         //}
 
-         //tol.update(fila,ig)
          iteracion = iteracion + 1
          //var matMul = A.zip(tol) map (_.zipped map (_ * _)) map (_.sum)
          //aiuda = distance(matMul,BtoArray)
@@ -63,10 +67,6 @@ object Jacobi {
 
       var duration = (System.nanoTime - t1) / 1e9d
       println("EXECUTION TIME:" + duration + " nanoseconds")
-
-      //for(i<-0 to l-1){
-      //   println("x" + i + "= " + ig(i))
-      //}
    }
 
    def readCSVFile(file: String) : (Array[Array[Double]], Array[Array[Double]], Int) = {
