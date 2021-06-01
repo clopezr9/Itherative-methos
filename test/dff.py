@@ -29,8 +29,8 @@ def isDDM(m, n) :
 #     return matrix
 
 # Driver Code
-n = 2000
-m = np.random.rand(2000,2001)
+n = 2500
+m = np.random.rand(2500,2501)
 while True :
     if((isDDM(m, n))) :
         print (m)
