@@ -39,7 +39,7 @@ def solver_sor(data):
         step += 1
         kmax += 1
     print("EXECUTION TIME:" + " %s nanoseconds " % (time.time_ns() - t))
-    print(phi)
+    # print(phi)
     # return phi
 
 main()
