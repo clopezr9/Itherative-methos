@@ -30,12 +30,12 @@ def isDDM(m, n) :
 
 # Driver Code
 #  50 100 200 300 700 800
-n = 800
-m = np.random.rand(800,801)
+n = 2000
+m = np.random.rand(2000,2001)
 while True :
     if((isDDM(m, n))) :
         print (m)
-        np.savetxt("800-0.csv", m, 
+        np.savetxt("2000-1.csv", m, 
               delimiter = ",")
         break
     else :
