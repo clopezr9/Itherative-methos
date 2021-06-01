@@ -57,7 +57,7 @@ func readCSVFile(file_name string) ([]Array, []float64) {
 func sor_solver(A []Array, b []float64) {
 
 	//Create where the solution will be store
-	var long int = len(A)
+	var long int = len(b)
 	var X0 = make([]float64, long)
 
 	var tolerancia float64 = 0.0000001
@@ -67,13 +67,12 @@ func sor_solver(A []Array, b []float64) {
 	var m int = len(A)
 	var omega float64 = 0.5
 	var X = X0
+	var diferencia = make([]float64, long)
 
-	diferencia := [][]float64{
-		{1, 1, 1},
-	}
 	var errado = tolerancia * 2
 	var iteracion int = 0
 	start := time.Now()
+
 	for !(errado <= tolerancia || iteracion > iteracionMax) {
 		for fila := 0; fila < n; fila++ {
 			var suma float64 = 0
@@ -82,21 +81,18 @@ func sor_solver(A []Array, b []float64) {
 					suma = (A[fila][columna]) * (X[columna])
 				}
 			}
-			var nuevo = (1.0-omega)*X[fila] + (omega/A[fila][fila])*(b[fila]-suma)
-
-			diferencia[0][fila] = math.Abs(nuevo - X[fila])
+			var nuevo float64 = (1.0-omega)*X[fila] + (omega/A[fila][fila])*(b[fila]-suma)
+			diferencia[fila] = math.Abs(nuevo - X[fila])
 
 			X[fila] = nuevo
 
 		}
 		var max float64
-		for _, j := range diferencia {
-			var n float64
-			for _, v := range j {
-				if v > n {
-					n = v
-					max = n
-				}
+		for i := 0; i < len(diferencia)-1; i++ {
+
+			if max < diferencia[i] {
+
+				max = diferencia[i]
 			}
 		}
 		errado = max
