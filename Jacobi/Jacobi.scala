@@ -19,8 +19,8 @@ object Jacobi {
       var ig  = Array.ofDim[Double](l)
 
       var tol = distance(dotProduct(A,ig, l), B)
-
       var tolerancia: Double = 0.00001
+
       var D = Array.fill(l)(0.0)
          for(i <- 0 to l-1){
             for(j <- 0 to l-1){
