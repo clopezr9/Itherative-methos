@@ -92,13 +92,6 @@ object SOR {
         
         var duration = (System.nanoTime - time_ini) / 1e9d
 
-        // println("Respuesta X : ")
-        // for(i <- 0 to Xt.length-1){
-        //     print("["+ Xt(i)(0) + " ]")
-        // }
-        // println("")
-
-
         println("EXECUTION TIME:" + duration + " nanoseconds")
 
      }
