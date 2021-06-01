@@ -29,15 +29,15 @@ def isDDM(m, n) :
 #     return matrix
 
 # Driver Code
-#  50 100 200 300 700 800
+#  50 300 700 1000 1500 2000
 
-n = 800
-m = np.random.rand(800,801)
+n = 1000
+m = np.random.rand(1000,1001)
 
 while True :
     if((isDDM(m, n))) :
         print (m)
-        np.savetxt("2000-1.csv", m, 
+        np.savetxt("1000-4.csv", m, 
               delimiter = ",")
         break
     else :
