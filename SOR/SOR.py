@@ -34,7 +34,7 @@ def solver_sor(data):
                 if j != i:
                     sigma += A[i, j] * phi[j]
             phi[i] = (1 - omega) * phi[i] + (omega / A[i, i]) * (b[i] - sigma)
-            print(phi[i])
+            # print(phi[i])
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
