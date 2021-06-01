@@ -96,8 +96,8 @@ object SOR {
         //      print("["+ Xt(i)(0) + " ]")
         // }
         // println("")
-
-        println("EXECUTION TIME:" + duration + " nanoseconds")
+        println(duration)
+        // println("EXECUTION TIME:" + duration + " nanoseconds")
 
      }
 
