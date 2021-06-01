@@ -97,7 +97,7 @@ func sor_solver(A []Array, b []float64) {
 		errado = max
 		iteracion = iteracion + 1
 	}
-	fmt.Println(X)
+	// fmt.Println(X)
 	// fmt.Println("")
 	elapsed := time.Since(start)
 	fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
