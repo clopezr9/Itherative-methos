@@ -89,7 +89,7 @@ object SOR {
         for(i <- 1 to X.length-1){
             Xt ++= Array(Array(X(i)))
         }
-        if(iteracion > iteracionMax){
+        if(iteracion >= iteracionMax){
             println("Iteration maximun Program abort :  " + iteracion)
         }
         var duration = (System.nanoTime - time_ini)
