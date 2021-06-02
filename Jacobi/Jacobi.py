@@ -23,7 +23,6 @@ def jacobi(A, b, N, rc):
     
     ig = [0] * len(A)
     residual = np.linalg.norm(np.matmul(A,ig)-b)
-    print(residual)
 
     # Create a vector of the diagonal elements of A                                                                                                                                                
     # and subtract them from A                                                                                                                                                                     
@@ -35,7 +34,6 @@ def jacobi(A, b, N, rc):
     while (i < N or residual > rc):
         ig = (b - np.dot(R,ig)) / D
         residual = np.linalg.norm(np.matmul(A,ig)-b)
-        print(residual)
         i = i + 1
 
     print("EXECUTION TIME:" + " %s nano seconds " % (time.time_ns() - start_time))

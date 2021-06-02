@@ -3,6 +3,7 @@ import javax.print.DocFlavor.INPUT_STREAM
 import javax.print.attribute.standard.PrinterURI
 import math._
 import java.io.File
+
 object Jacobi {
 	def main(args: Array[String]): Unit = {
       
