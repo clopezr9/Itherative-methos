@@ -120,8 +120,9 @@ func sor_solver(A []Array, b []float64) {
 		tol = euclidian_distance(dot(A, X, n), b)
 		iteracion = iteracion + 1
 	}
-	fmt.Println("Respuesta X: ", X)
+	// fmt.Println("Respuesta X: ", X)
 	fmt.Println("")
 	elapsed := time.Since(start)
-	fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
+	fmt.Print(elapsed)
+	// fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
 }
