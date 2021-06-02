@@ -15,7 +15,7 @@ func main() {
 	args := os.Args
 	for i := 1; i < len(args); i++ {
 		file_name := args[i]
-		fmt.Println(args, ":")
+		fmt.Println(args[i], ":")
 		sor_solver(readCSVFile(file_name)) //n = system dimensions, A = augmented matrix
 	}
 }
