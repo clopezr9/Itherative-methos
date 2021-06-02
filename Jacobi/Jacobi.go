@@ -102,12 +102,23 @@ func division(a []float64, b []float64, l int) []float64 {
 	return result
 }
 
+func euclidian_distance(A []float64, b []float64) float64 {
+
+	var distance = 0.0
+	for fila := 0; fila < len(A); fila++ {
+		distance = distance + math.Pow(A[fila]-b[fila], 2)
+	}
+	distance = math.Sqrt(distance)
+	return distance
+}
+
 func jacobi(A []Array, b []float64, N int) {
 
 	//Creates varible with the length of Matrix A
 	var l int = len(A)
 	var ig = make([]float64, l)
-
+	var tolerancia float64 = 0.000001
+	var tol float64 = euclidian_distance(dot(A, ig, l), b)
 	//Variable were dominant values are going to be stored.
 	D := make([]float64, l)
 	for i := 0; i < len(A); i++ {
@@ -130,10 +141,13 @@ func jacobi(A []Array, b []float64, N int) {
 		}
 	}
 
+	var i int = 0
 	start := time.Now()
 	// Iterate for N times.
-	for i := 0; i < N; i++ {
+	for tol > tolerancia && i < N {
 		ig = division(substraction(b, dot(R, ig, l), l), D, l)
+		tol = euclidian_distance(dot(A, ig, l), b)
+		i = i + 1
 	}
 	duration := time.Since(start)
 	fmt.Println("EXECUTION TIME: ", duration.Nanoseconds())

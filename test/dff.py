@@ -37,7 +37,7 @@ m = np.random.rand(1500,1501)
 while True :
     if((isDDM(m, n))) :
         print (m)
-        np.savetxt("1500-4.csv", m, 
+        np.savetxt("2000-4.csv", m, 
               delimiter = ",")
         break
     else :
