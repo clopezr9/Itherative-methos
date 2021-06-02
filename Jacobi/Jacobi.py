@@ -31,7 +31,7 @@ def jacobi(A, b, N, rc):
     # Iterate for N times
     i = 0
     start_time = time.time_ns()
-    while (i < N or residual > rc):
+    while (i < N and residual > rc):
         ig = (b - np.dot(R,ig)) / D
         residual = np.linalg.norm(np.matmul(A,ig)-b)
         i = i + 1

@@ -102,7 +102,7 @@ function jacobi(A, b, N, rc)
         # println("R:", R)
 
     i = 0
-    while (i < N || residual > rc)
+    while (i < N && residual > rc)
         residual = norm(b - A * ig, 2)
         aux = (b - (dotProduct(R, ig, l)))
         ig = division(aux, D, l)
