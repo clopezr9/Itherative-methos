@@ -42,7 +42,7 @@ object Jacobi {
 
       var iteracion = 0
       var t1 = System.nanoTime
-      while((iteracion < N || tol > tolerancia)){
+      while((iteracion < N && tol > tolerancia)){
          
          ig = division(substraction(B, dotProduct(R, ig, l),l), D, l)
          tol = distance(dotProduct(A,ig, l), B)
