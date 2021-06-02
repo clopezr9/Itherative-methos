@@ -34,11 +34,11 @@ def solver_sor(data):
                 if j != i:
                     sigma += A[i, j] * phi[j]
             phi[i] = (1 - omega) * phi[i] + (omega / A[i, i]) * (b[i] - sigma)
-            # print(phi[i])
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
-    
+    if (residual > residual_convergence and kmax < 100):
+        print("Program abort, exact solution not found with parameters :" + " %s  " % kmax)
     print(time.time_ns() - t)
     # print("EXECUTION TIME:" + " %s nanoseconds " % (time.time_ns() - t))
     # print(phi)

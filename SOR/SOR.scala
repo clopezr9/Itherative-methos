@@ -65,7 +65,7 @@ object SOR {
         
         var time_ini = System.nanoTime()
 
-        while ((aiuda > tolerancia || iteracion > 100)){
+        while ((aiuda > tolerancia || iteracion > iteracionMax)){
             for(fila <- 0 to n - 1){
                 var suma: Double = 0
                 var sigma: Double = 0
@@ -89,13 +89,15 @@ object SOR {
         for(i <- 1 to X.length-1){
             Xt ++= Array(Array(X(i)))
         }
-        
+        if(iteracion > iteracionMax){
+            println("Iteration maximun Program abort :  " + iteracion)
+        }
         var duration = (System.nanoTime - time_ini)
         // println("Respuesta X : ")
         // for(i <- 0 to Xt.length-1){
-        //      print("["+ Xt(i)(0) + " ]")
+        //       print("["+ Xt(i)(0) + " ]")
         // }
-        // println("")
+        println("")
         println(duration)
         // println("EXECUTION TIME:" + duration + " nanoseconds")
 
