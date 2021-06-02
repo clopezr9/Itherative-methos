@@ -89,17 +89,17 @@ object SOR {
         for(i <- 1 to X.length-1){
             Xt ++= Array(Array(X(i)))
         }
-        if(iteracion > iteracionMax){
+        if(iteracion >= iteracionMax){
             println("Iteration maximun Program abort :  " + iteracion)
         }
         var duration = (System.nanoTime - time_ini)
         // println("Respuesta X : ")
         // for(i <- 0 to Xt.length-1){
         //       print("["+ Xt(i)(0) + " ]")
-        // }
-        println("")
-        println(duration)
-        // println("EXECUTION TIME:" + duration + " nanoseconds")
+        // // }
+        // println("")
+        // println(duration)
+        println("EXECUTION TIME:" + duration + " nanoseconds")
 
      }
 

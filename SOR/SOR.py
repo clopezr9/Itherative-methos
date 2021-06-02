@@ -37,7 +37,7 @@ def solver_sor(data):
         residual = np.linalg.norm(np.matmul(A, phi) - b)
         step += 1
         kmax += 1
-    if (residual > residual_convergence and kmax < 100):
+    if (residual >= residual_convergence and kmax <= 100):
         print("Program abort, exact solution not found with parameters :" + " %s  " % kmax)
     print(time.time_ns() - t)
     # print("EXECUTION TIME:" + " %s nanoseconds " % (time.time_ns() - t))
