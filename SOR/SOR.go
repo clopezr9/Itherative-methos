@@ -24,7 +24,7 @@ func readCSVFile(file_name string) ([]Array, []float64) {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println("Successfully Opened CSV file")
+	// fmt.Println("Successfully Opened CSV file")
 	defer csvFile.Close()
 
 	csvLines, err := csv.NewReader(csvFile).ReadAll()
@@ -123,6 +123,6 @@ func sor_solver(A []Array, b []float64) {
 	// fmt.Println("Respuesta X: ", X)
 	fmt.Println("")
 	elapsed := time.Since(start)
-	fmt.Print(elapsed)
+	fmt.Println(elapsed)
 	// fmt.Println("EXECUTION TIME: ", elapsed.Nanoseconds(), " nanoseconds")
 }
