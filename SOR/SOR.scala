@@ -96,10 +96,10 @@ object SOR {
         // println("Respuesta X : ")
         // for(i <- 0 to Xt.length-1){
         //       print("["+ Xt(i)(0) + " ]")
-        // }
-        println("")
-        println(duration)
-        // println("EXECUTION TIME:" + duration + " nanoseconds")
+        // // }
+        // println("")
+        // println(duration)
+        println("EXECUTION TIME:" + duration + " nanoseconds")
 
      }
 
