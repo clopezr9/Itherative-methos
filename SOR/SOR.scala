@@ -65,7 +65,7 @@ object SOR {
         
         var time_ini = System.nanoTime()
 
-        while ((aiuda > tolerancia || iteracion > iteracionMax)){
+        while ((aiuda > tolerancia && iteracion < iteracionMax)){
             for(fila <- 0 to n - 1){
                 var suma: Double = 0
                 var sigma: Double = 0

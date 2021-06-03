@@ -55,7 +55,7 @@ function solver_sor(A, b)
     start_time = time_ns()
         norma = norm(b - A * X0, 2)
         iteracion = 0
-        while !( norma <= tolerancia ||  iteracion > iteracionMax)
+        while ( norma > tolerancia &&  iteracion < iteracionMax)
 
             if iteracion == maxiter
                 println("Maximum number of iterations reached: $(iteracion)")
@@ -79,8 +79,7 @@ function solver_sor(A, b)
         end
         end_time = time_ns()
         exe_time = end_time - start_time
-        # println(exe_time)
-        print("EXECUTION TIME: ", exe_time, " nanoseconds")
+        println("EXECUTION TIME: ", exe_time, " nanoseconds")
         # println(X0)
     end
     

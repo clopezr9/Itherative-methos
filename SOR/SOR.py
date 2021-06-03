@@ -27,7 +27,7 @@ def solver_sor(data):
     t = time.time_ns()
 
     residual = np.linalg.norm(np.matmul(A, phi) - b)
-    while (residual > residual_convergence or kmax < 100) :
+    while (residual > residual_convergence and kmax < 100) :
         for i in range(A.shape[0]):
             sigma = 0
             for j in range(A.shape[1]):
